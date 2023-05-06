@@ -18,4 +18,8 @@ int main() {
     }
     printf("El alumno obtuvo: %d", correctas);
     return 0;
+    
 }
+
+
+
