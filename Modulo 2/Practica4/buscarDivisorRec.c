@@ -1,0 +1,3 @@
+void buscar_divisores(){
+    
+}
