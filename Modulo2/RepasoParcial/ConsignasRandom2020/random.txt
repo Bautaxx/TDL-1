@@ -1,0 +1,107 @@
+1)
+a)FALSO, se pasa el dato "por referencia", de la direccion se pasa una copia.
+b)VERDADERO
+c)FALSO, es al reves
+d)FALSO
+e)VERDADERO, si con inconvenientes te referis a errores de compilacion. Si con 
+inconvenientes te referis a que el numero va a estar mal representado (es decir no te lo va a castear excpeto que se lo pidas)
+entonces la respuesta es FALSO.
+f)Misma respuesta que antes
+
+2)
+a)FALSO, seria el caso de asignarse una a otra.
+b)FALSO, solo en caso de STRUCTS o UNIONES donde existen campos.
+c)VERDADERO
+d)FALSO, esto ocurre con los campos de bits unicamente.
+e)FALSO
+f)VERDADERO
+
+3)
+texto = "Hola\0"
+SINGLETON:
+    - p1 = "Hola\0"
+    - IMP: "Nada \n"
+SINGLETON:
+    - IMP = "Hola \0"
+SINGLETON:
+    - IMP = "Hola \0"
+
+
+4)Modulo 1
+5)
+#define ABS(a,b) ((a) - (b))
+#define MANH(Px, Py, Qx, Qy) (ABS(Px, Qx) + ABS(Py, Qy))
+6)
+a)VERDADERO
+b)VERDADERO
+C)VERDADERO
+d)FALSO, esa es la funcion fseek
+e)-------------REVISAR-----------
+f)FALSO, deberia ser STDIN
+
+7)
+//transformaciones.h 
+#define LENGTH 30
+typedef struct {
+    char nombre [LENGTH + 1];
+    int visitas;
+    float valoracion;
+}info;
+
+int binToTxt(char *, char *);
+
+
+//transformaciones.c
+int binToTxt (char * texto, char * binario){
+    //Apertura de ambos archivos
+    FILE * fbin, * ftext;
+    fbin = fopen(binario, "r");
+    if(fbin == NULL){
+        return 1;
+    }
+    ftext = fopen(texto, "w");
+    if(ftext == NULL){
+        return 2;
+    }
+    //Variables auxiliares para lectura y escritura
+    info aux;
+    while(fread(&aux, sizeof(info), 1, fbin) == 1){ //Si lee exitosamente entonces no termino
+        fprintf(ftext, "%s | %d | %.1f", aux.nombre, aux.visitas, aux.valoracion);
+    }
+    fclose(fbin);
+    fclose(ftext);
+    return 0;
+
+}
+
+8)
+gcc -o prueba prueba.c transformaciones.c 
+./prueba
+
+9)
+#include "transformaciones.h"
+#include <stdlib.h>
+
+int main(int argc, char const * argv []){
+    if(argc != 3){
+        printf("Menos argumentos de los esperados");
+        return 1;
+    }
+    else{
+        binToTxt(argv[1], argv[2]);
+        FILE * f;
+        f = fopen(argv[1], 'r');
+        //No deberia haber errores 
+        if(f == NULL){
+            printf("Error al abrir archivo de texto desde main.c");
+            return 1;
+        }
+        char aux [200];
+        fgets(aux, 100, f);
+        while(!feof(f)){
+            puts(aux);
+            fgets(aux, 100, f);
+        }
+        fclose(f);
+    }
+}

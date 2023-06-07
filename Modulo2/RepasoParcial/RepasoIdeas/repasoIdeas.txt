@@ -1,0 +1,104 @@
+1) Linea a linea:
+Reserva en linea 100 bytes (memoria dinamica / runtime)
+linea = "Caso Posible\0"
+IMP: Linea = Posible
+CAMBIOSTR:
+    - Se liberan los 100 bytes de linea
+    - A L (local a funcion) se le alocan 200 bytes
+    - L = "Nuevo texto\0"
+    IMP: L  = Nuevo texto
+Linea queda apuntando a una direccion donde no hay nada, ya que el malloc y los str de cambioSTR no tienen efecto
+IMP: L = 
+
+
+2)IMP: 10 9 8 7 6 
+Ya que el for queda con printf como unica instruccion, no entra al else porque entro inicialmente al if
+
+3)#define nPares(a,b) (!((a) % 2) + !((b) % 2))
+
+4)a)Falso, los ptr tienen siempre el mismo tamanio
+b)Verdadero, ya que en memoria la matriz esta de forma secuencial.
+c)Verdadero
+010
+    xor
+101
+---
+111 = 7
+d)Falso, tambien difieren en que se hace con el contenido existente.
+a = append (append changes); w = write; r = read
+e)FALSO, con w+ se descarta el contenido y con r no
+f)VERDADERO
+g)VERDADERO
+h)FALSO
+i)FALSO, solo permite saber si se paso por 1
+j)VERDADERO
+
+6)
+int i;
+if(argc == 1){
+    printf("Se recibieron menos parametros de los esperados");
+    return 1;
+}
+else{
+    for(i = 1; i < argv; i++){
+        printf("%s ", argv[i]);
+    }
+    return 0;
+}
+
+7)
+#include <stdlib.h>
+
+int ** reservaMem(int n){
+    int ** mat, i;
+    mat = malloc(n * sizeof(int *));
+    for(i = 0; i < n; i++){
+        mat[i] = malloc((i + 1) * sizeof(int));
+    }
+    return mat;
+}
+
+void initMat(int ** mat, int n){
+    int i, j;
+    for(i = 0; i < n; i++){
+        for(j = 0; j < i + 1; j++){
+            mat[i][j] = rand();
+        }
+    }
+}
+
+void impMat(int ** mat, int n){
+    int i, j;
+    for(i = 0; i < n; i++){
+        for(j = 0; j < i + 1; j++){
+            printf("%d", mat[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void liberarMem(int *** mat, int n) {
+    int i;
+    for(i = 0; i < n; i++){
+        free (*(*(mat[i])));
+    }
+    free(*mat);
+}
+
+8)
+
+a)void eliminarUltimo(nodo * l){
+    nodo * ant;
+    while(l->sig != NULL){
+        ant = l;
+        l = l->sig;
+    }
+    ant->sig = NULL;
+    free(l);
+}
+
+b)void liberarLista(nodo * l){
+    while(l != NULL){
+        eliminarUltimo(l);
+    }
+}
